@@ -1,15 +1,12 @@
 import prisma from "../../../lib/prisma"
+import { NextResponse } from 'next/server';
 
-export async function POST(request: Request) {
-  const { completion_status: boolean, title: string } = await request.json();
-  const newTask = await prisma.task.create({
+export async function POST(req: Request) {
+  const body = await req.json()
+  const task = await prisma.task.create({
     data: {
-        completion_status: boolean,
-        title: string,
-    },
+      title: body.title,
+    }
   })
-  return {
-    status: 200,
-    body: newTask,
-  }
+  return new Response(JSON.stringify(task))
 }
