@@ -1,6 +1,6 @@
 import prisma from "../../../lib/prisma"
 
-export async function POST( req: Request, res: Response) {
+export async function POST( req: Request, res: Response ) {
   try {
   const body = await req.json()
   const task = await prisma.task.create({
