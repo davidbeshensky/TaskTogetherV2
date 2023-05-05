@@ -1,5 +1,9 @@
 'use client'
 import { useState } from "react";
+interface Task {
+    id: number;
+    title: string;
+  }
 
 const GetTasks = () => {
   const [tasks, setTasks] = useState([]);
