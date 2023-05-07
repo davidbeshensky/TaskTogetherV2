@@ -40,7 +40,7 @@ const makeApiCall = async () => {
         <div className="w-full border border-white m-2 p-2 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-white">
             <h3>POST a Task</h3>
             <input type="text" name="title" value={title} placeholder="title" onChange={handleTitleChange} className="w-30 m-2 p-2 text-black"/>
-            <button onClick={makeApiCall} className="border-white m-2 p-2 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-white active:bg-blue-800">make Task</button> 
+            <button onClick={makeApiCall} className="border border-white m-2 p-2 active:bg-blue-800 transition-all duration-100 active:scale-95 active:opacity-85">Make Task</button> 
         </div>
     )
 }

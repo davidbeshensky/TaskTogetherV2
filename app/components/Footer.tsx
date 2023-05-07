@@ -11,8 +11,6 @@ const Footer = () => {
             <div>
               <CreateTasks />
               <GetTasks />
-              <button className="border border-white m-2 p-2 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-white">Update Tasks</button>
-              <button className="border border-white m-2 p-2 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-white">Delete Tasks</button>
             </div>
         </div>
     </div>

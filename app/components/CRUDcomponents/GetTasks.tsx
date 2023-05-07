@@ -54,6 +54,12 @@ const GetTasks = () => {
     }
   };
 
+  const handleDeleteTask = async (id: Number) => {
+    try {
+      const response = await fetch ()
+    }
+  }
+
   return (
     <div>
       <button onClick={makeApiCall} className="w-full h-20 border border-white m-2 p-2 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-white">Get Todays Tasks</button>
