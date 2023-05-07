@@ -54,11 +54,21 @@ const GetTasks = () => {
     }
   };
 
-  const handleDeleteTask = async (id: Number) => {
+  const handleDeleteTask = async (id: number) => {
     try {
-      const response = await fetch ()
+      const response = await fetch(`/api/deleteTask/${id}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        console.log("Task deleted successfully");
+      } else {
+        console.error("Error deleting task:", response.status);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -74,7 +84,13 @@ const GetTasks = () => {
                     checked={completionStatus[task.id] ?? false}
                     onChange={(e) => handleCheckboxChange(task.id, e.target.checked)}
                 />
+
                 <span className="ml-2 text-white">{task.title}</span>
+
+                <button onClick={() => handleDeleteTask(task.id)} className="ml-2 text-red-500">
+                   ~Delete~
+                </button>
+                
                 </label>
             </div>
           </li>
