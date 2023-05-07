@@ -10,6 +10,7 @@ interface Task {
 const GetTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [completionStatus, setCompletionStatus] = useState<{ [id: number]: boolean }>({});
+  const [isEditing, setIsEditing] = useState<{ [id: number]: boolean }>({});
 
   const makeApiCall = async () => {
     try {
@@ -89,6 +90,11 @@ const GetTasks = () => {
 
                 <button onClick={() => handleDeleteTask(task.id)} className="ml-2 text-red-500">
                    ~Delete~
+                </button>
+                <button onClick={() => setIsEditing((prevIsEditing) => ({...prevIsEditing, [task.id]: true}))} 
+                className="ml-2 text-green-500"
+                >
+                Edit Title
                 </button>
                 
                 </label>
