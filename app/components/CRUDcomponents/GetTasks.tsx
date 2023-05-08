@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 interface Task {
   id: number;
@@ -15,27 +15,30 @@ const GetTasks = () => {
   const [isEditing, setIsEditing] = useState<{ [id: number]: boolean }>({});
   const [newTitle, setNewTitle] = useState<string>("");
 
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch("/api/getTasks", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setTasks(data);
+        setCompletionStatus(
+          data.reduce((obj: any, task: any) => {
+            obj[task.id] = task.completion_status;
+            return obj;
+          }, {})
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  const makeApiCall = async () => {
-    try {
-      const response = await fetch("/api/getTasks", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      setTasks(data);
-      setCompletionStatus(
-        data.reduce((obj: any, task: any) => {
-          obj[task.id] = task.completion_status;
-          return obj;
-        }, {})
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    fetchTasks();
+  }, []);
 
   //HANDLE CHECKBOX CHANGE
   const handleCheckboxChange = async (id: number, checked: boolean) => {
@@ -118,12 +121,6 @@ const GetTasks = () => {
 
   return (
     <div>
-      <button
-        onClick={makeApiCall}
-        className="w-full h-20 border border-white m-2 p-2 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-white"
-      >
-        Get Todays Tasks
-      </button>
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>
@@ -142,7 +139,7 @@ const GetTasks = () => {
                   />
                   <button
                     type="submit"
-                    className="ml-2 text-green-500"
+                    className="ml-2 text-green-500 border border-white p-1"
                   >
                     Submit
                   </button>
@@ -163,6 +160,7 @@ const GetTasks = () => {
                   >
                     {task.title}
                   </span>
+                  <div className="flex ml-auto">
                   <button
                     onClick={() =>
                       setIsEditing((prevIsEditing) => ({
@@ -170,16 +168,17 @@ const GetTasks = () => {
                         [task.id]: true,
                       }))
                     }
-                    className="ml-2 text-green-500"
+                    className="ml-2 text-green-500 border border-white p-1"
                   >
                     Edit Title
                   </button>
                   <button
                     onClick={() => handleDeleteTask(task.id)}
-                    className="ml-2 text-red-500"
+                    className="ml-2 text-red-500 border border-white p-1"
                   >
                     Delete
                   </button>
+                  </div>
                 </label>
               )}
             </div>
@@ -190,5 +189,4 @@ const GetTasks = () => {
   );
 }
             
-
 export default GetTasks;
