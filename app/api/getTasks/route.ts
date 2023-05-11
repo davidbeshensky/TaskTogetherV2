@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 
 export async function GET(_: any, res: Response) {
   try {
+    
     const today = dayjs();
     const startOfDay = today.startOf('day').toDate();
     const endOfDay = today.endOf('day').toDate();
@@ -15,6 +16,7 @@ export async function GET(_: any, res: Response) {
       }
     });
     return new Response(JSON.stringify(tasks), {
+      
       headers: {
         'Content-Type': 'application/json'
       }

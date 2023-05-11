@@ -9,20 +9,22 @@ datasource db {
 }
 
 // model User {
-//   id        Int      @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   email     String   @unique
-//   name      String?
-//   password  String?
-//   tasks     Task[]
+//   id         Int      @id @default(autoincrement())
+//   email      String   @unique
+//   password   String
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+//   tasks      Task[]   @relation("userTasks")
 // }
 
-model Task {
-  id               Int      @id @default(autoincrement())
-  createdAt        DateTime @default(now())
-  completion_status Boolean  @default(false)
-  title            String   @db.VarChar(255)
-}
 
-//author           User?    @relation(fields: [authorId], references: [id])
-//authorId         Int?
+
+model Task {
+  id                Int      @id @default(autoincrement())
+  // userId            Int      @map("user_id")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  completion_status Boolean  @default(false)
+  title             String   @db.VarChar(255)
+  // user              User     @relation("userTasks", fields: [userId], references: [id])
+}
